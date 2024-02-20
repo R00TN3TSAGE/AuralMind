@@ -13,17 +13,41 @@ engine = pyttsx3.init()
 # Load spacy NLP model
 nlp = spacy.load("en_core_web_sm")
 
-# Placeholder for a more complex context and user profile management
-context = {"last_command": None, "user": "default"}
+# Placeholder for user profiles and context management
+context = {"last_command": None, "user": "default", "authenticated": False}
 user_profiles = {
     "default": {
         "name": "User",
         "preferences": {
             "greeting": "Hi there! How can I assist you today?",
-            "farewell": "Goodbye, and have a great day!"
-        }
-    }
+            "farewell": "Goodbye, and have a great day!",
+        },
+        "language": "en",
+    },
+    # Additional user profiles could be added here
 }
+
+# Placeholder for multi-language support
+languages = {"en": "English", "fr": "French"}
+nlp_models = {"en": spacy.load("en_core_web_sm"), "fr": spacy.load("fr_core_news_sm")}
+
+def listen(language="en"):
+    """Listen to audio and convert it to text."""
+    with sr.Microphone() as source:
+        print("Listening...")
+        audio = r.listen(source)
+
+    try:
+        # Language parameter can be used here for speech recognition in different languages
+        text = r.recognize_google(audio, language=language)
+        print(f"You said: {text}")
+        return text
+    except sr.UnknownValueError:
+        speak("I couldn't understand what you said. Please try again.", language)
+        return None
+    except sr.RequestError as e:
+        speak(f"Could not request results from the speech recognition service; {e}", language)
+        return None
 
 def listen():
     """Listen to audio and convert it to text."""
@@ -114,20 +138,19 @@ def speak(text):
 
 def main():
     """Main function to run the assistant."""
-    user_name = user_profiles[context["user"]]["name"]
-    speak(f"{user_profiles[context['user']]['preferences']['greeting']}")
+    user_language = user_profiles[context["user"]]["language"]
+    speak(user_profiles[context["user"]]["preferences"]["greeting"], user_language)
 
     while True:
-        text = listen()
+        text = listen(user_language)
         if text:
-            intent = analyze_intent(text)
-            context["last_command"] = intent  # Update context with the last command
-            response = perform_action(intent)
-            speak(response)
-            if intent == "farewell":  # Exit loop on farewell intent
+            intent, entities = analyze_intent(text, user_language)
+            response = perform_action(intent, entities, user_language)
+            speak(response, user_language)
+            if intent == "farewell":
                 break
         else:
-            speak("I didn't catch that. Could you please repeat?")
+            speak("I didn't catch that. Could you please repeat?", user_language)
 
 if __name__ == "__main__":
     main()
