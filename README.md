@@ -1,5 +1,7 @@
 # AuralMind
 
+**THIS PROJECT IS STILL UNDER DEVELOPMENT**
+
 AuralMind is a Python-based voice recognition and response system designed as the auditory module of a future comprehensive virtual assistant framework. Inspired by the complexity and versatility of advanced systems like Jarvis, AuralMind focuses on the auditory interaction - recognizing spoken commands, processing them through basic natural language understanding, and providing spoken responses. This project serves as a modular foundation for developers aiming to build sophisticated, AI-driven assistants that mimic human senses and cognitive functions.
 
 ## Features
