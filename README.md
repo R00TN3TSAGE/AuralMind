@@ -24,7 +24,7 @@ python -m spacy download en_core_web_sm
 ## Installation
 
 Clone the repository to your local machine:
-git clone https://github.com/yourusername/AuralMind.git
+git clone https://github.com/r00tn3tsage/AuralMind.git
 cd AuralMind
 
 #### Usage
