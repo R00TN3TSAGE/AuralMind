@@ -46,15 +46,3 @@ Acknowledgments
 
 	•	SpeechRecognition library team for providing an easy-to-use speech recognition interface.
 	•	The pyttsx3 project for enabling Python-based text-to-speech functionality.
-
-### Repository Structure
-
-/AuralMind
-/src
-auralmind.py  # Main Python script for the voice assistant
-/docs
-CONTRIBUTING.md
-CODE_OF_CONDUCT.md
-LICENSE
-README.md
-requirements.txt  # List of dependencies
